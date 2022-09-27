@@ -1,9 +1,7 @@
 from web3 import Web3
 from dotenv import load_dotenv
 import pandas as pd
-import os
-import json
-import requests
+import os, json, requests
 
 # Load environment variables
 load_dotenv()
@@ -30,13 +28,11 @@ def fetch_cache(endpoint, contributor_scheme, fromBlock):
             "eth_reward",
             "erc20_reward",
             "period_length",
-            "period_numb",
+            "period_num",
         ]
     ] = pd.DataFrame(df["_rewards"].tolist(), index=df.index)
     # Turn _proposalId bytes into a hex string and prefix with 0x
     df["_proposalId"] = df["_proposalId"].apply(lambda x: "0x" + x.hex())
-    # Drop all columns with 0 values
-    df = df.loc[:, (df != 0).any(axis=0)]
 
     # Retreive proposal data from _descriptionHash IPFS hash, if error set to 'IPFS error'
     df["proposal_data"] = df["_descriptionHash"].apply(
