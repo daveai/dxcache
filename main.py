@@ -49,4 +49,4 @@ if __name__ == '__main__':
     # Merge mainnet and gnosis dataframes
     df = pd.concat([mainnet, gnosis], ignore_index=True)
     # Save to csv
-    df.to_csv(f'data_{start_date}.csv', index=False)
+    df.to_csv('data.csv', index=False)
